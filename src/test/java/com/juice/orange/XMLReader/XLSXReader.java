@@ -17,12 +17,11 @@ public class XLSXReader {
 	List<JSONObject> jsonList;
 
 	XLSXReader(String fileAddr, String topName) throws IOException {
-		xssfWorkbook = new XSSFWorkbook(fileAddr);
+		this.xssfWorkbook = new XSSFWorkbook(fileAddr);
 		this.topName = topName;
-		jsonList = new ArrayList<JSONObject>();
 	}
 	XLSXReader(){
-		
+
 	}
 
 	// String location = "C:\\Users\\zhangxiao3\\Desktop\\abc.xlsx";
@@ -34,7 +33,7 @@ public class XLSXReader {
 		XSSFRow titleRow = currentSheet.getRow(0);
 		int titleNum = titleRow.getLastCellNum();
 		String[] titleList = new String[titleNum];
-		for (int i = 0; i <= titleNum; i++) {
+		for (int i = 0; i < titleNum; i++) {
 			// TODO check fieldType
 			titleList[i] = titleRow.getCell(i).getStringCellValue();
 		}
@@ -52,6 +51,7 @@ public class XLSXReader {
 					jsonObj.put(titleList[cell], tempCell.getStringCellValue());
 				}
 			}
+			System.out.println(jsonObj.toString());
 			jsonList.add(jsonObj);
 		}
 		return jsonList;
@@ -65,8 +65,9 @@ public class XLSXReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		reader.parseSheet(topName);
-		System.out.println(jsonList);
+		System.out.println(reader.topName);
+		reader.parseSheet(reader.topName);
+
 	}
 
 }
